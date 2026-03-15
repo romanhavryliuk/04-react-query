@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { toast, Toaster } from "react-hot-toast";
 import type { Movie } from "../../types/movie.ts";
 import { fetchMovies } from "../../services/movieService.ts";
@@ -21,6 +21,7 @@ function App() {
     queryKey: ["movies", searchQuery, page],
     queryFn: () => fetchMovies(searchQuery, page),
     enabled: searchQuery.length > 0,
+    placeholderData: keepPreviousData,
   });
 
   const handleSearch = (query: string) => {
